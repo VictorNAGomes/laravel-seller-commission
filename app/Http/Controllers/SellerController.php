@@ -63,4 +63,49 @@ class SellerController extends Controller
         }
         return $seller->toArray();
     }
+
+    public function update(Request $request, int $id)
+    {
+        if ($request->name == '') {
+            return response()->json([
+                'status' => false,
+                'message' => 'Nome Inválido'
+            ], 400);
+        }
+
+        if ($request->email == '') {
+            return response()->json([
+                'status' => false,
+                'message' => 'Email Inválido'
+            ], 400);
+        }
+
+        $seller = Seller::where('id', $id)->get()->first();
+        if (!$seller) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Vendedor não encontrado'
+            ], 404);
+        }
+
+        if ($seller->email != $request->email) {
+            $sellerAlreadyExists = Seller::where('email', $request->email)->get();
+            if (count($sellerAlreadyExists->toArray()) > 0) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Email já cadastrado'
+                ], 400);
+            }
+        }
+
+        $seller->name = $request->name;
+        $seller->email = $request->email;
+
+        $seller->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Vendedor Editado com sucesso'
+        ], 200);
+    }
 }

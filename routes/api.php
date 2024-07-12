@@ -11,3 +11,4 @@ Route::get('/greeting', function () {
 Route::get('/seller', [SellerController::class, 'getAll']);
 Route::get('/seller/{id}', [SellerController::class, 'getById']);
 Route::post('/seller', [SellerController::class, 'create']);
+Route::patch('/seller/{id}', [SellerController::class, 'update']);
