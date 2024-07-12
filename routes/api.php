@@ -8,7 +8,8 @@ Route::get('/greeting', function () {
     return 'Hello World';
 });
 
+Route::post('/seller', [SellerController::class, 'create']);
 Route::get('/seller', [SellerController::class, 'getAll']);
 Route::get('/seller/{id}', [SellerController::class, 'getById']);
-Route::post('/seller', [SellerController::class, 'create']);
 Route::patch('/seller/{id}', [SellerController::class, 'update']);
+Route::delete('/seller/{id}', [SellerController::class, 'delete']);

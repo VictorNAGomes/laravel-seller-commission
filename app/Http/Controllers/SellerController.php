@@ -41,7 +41,7 @@ class SellerController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Vendedor Criado com sucesso'
-        ], 200);
+        ], 201);
     }
 
     public function getAll()
@@ -106,6 +106,25 @@ class SellerController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Vendedor Editado com sucesso'
+        ], 200);
+    }
+
+    public function delete(int $id)
+    {
+        $seller = Seller::where('id', $id)->get();
+
+        if (count($seller->toArray()) == 0) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Vendedor não encontrado'
+            ], 404);
+        }
+
+        $seller = Seller::where('id', $id)->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Vendedor deletado com sucesso'
         ], 200);
     }
 }
