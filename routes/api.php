@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\SellerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/greeting', function () {
     return 'Hello World';
 });
+
+Route::get('/seller', [SellerController::class, 'getAll']);
+Route::get('/seller/{id}', [SellerController::class, 'getById']);
