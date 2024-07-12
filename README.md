@@ -1,1 +1,1 @@
-Laravel - comission seller
+Laravel - seller comission
