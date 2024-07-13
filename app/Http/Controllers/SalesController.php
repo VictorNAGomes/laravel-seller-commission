@@ -22,7 +22,7 @@ class SalesController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Valor inválido'
-            ], 404);
+            ], 400);
         }
 
         $sales = new Sales;
@@ -33,13 +33,22 @@ class SalesController extends Controller
         $sales->save();
 
         return response()->json([
-            'status' => false,
+            'status' => true,
             'message' => 'Venda cadastrada com sucesso'
         ], 201);
     }
 
     public function getAllSalesFromSeller(int $id_seller)
     {
+        $seller = Seller::where('id', $id_seller)->get();
+
+        if (count($seller->toArray()) == 0) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Vendedor não encontrado'
+            ], 404);
+        }
+
         $sales =  Sales::where('sellers.id', $id_seller)
             ->join('sellers', 'sales.id_seller', 'sellers.id')
             ->select('sellers.id', 'sellers.name', 'sellers.email', 'sales.value', 'sales.created_at')
