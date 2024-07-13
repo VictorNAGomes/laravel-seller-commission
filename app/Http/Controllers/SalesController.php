@@ -60,4 +60,13 @@ class SalesController extends Controller
 
         return response()->json($salesSeller, 200, [], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
+
+    public static function getAllSalesInTheDay()
+    {
+        $sales =  Sales::whereRaw('DATE_FORMAT(created_at,\'%Y-%m-%d\') = \'' . now()->format('Y-m-d') . '\'')
+            ->selectRaw('sum(value) as total_value')
+            ->get();
+
+        return $sales[0]->total_value;
+    }
 }
