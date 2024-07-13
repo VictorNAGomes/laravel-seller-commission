@@ -17,7 +17,8 @@ class SalesFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'id_seller' => fake()->numberBetween(1, 3),
+            'value' => fake()->unique()->randomFloat(2, 1, 10000)
         ];
     }
 }
