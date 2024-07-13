@@ -253,3 +253,29 @@ Cria uma nova venda.
     ```
 -   400 Bad Request
 -   404 Not Found
+
+---
+
+## Enviar Email com relatório de vendas
+
+Mudar credenciais de email no .env
+
+```env
+MAIL_MAILER=
+MAIL_HOST=
+MAIL_PORT=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+```
+
+Enviar um email
+
+```sh
+php artisan send:email
+```
+
+Agenda email para todo dia útil
+
+```sh
+php artisan schedule:work
+```
