@@ -15,4 +15,6 @@ Route::get('/seller/{id}', [SellerController::class, 'getById']);
 Route::patch('/seller/{id}', [SellerController::class, 'update']);
 Route::delete('/seller/{id}', [SellerController::class, 'delete']);
 
+Route::get('/seller/{id}/sales', [SalesController::class, 'getAllSalesFromSeller']);
+
 Route::post('/sales', [SalesController::class, 'create']);

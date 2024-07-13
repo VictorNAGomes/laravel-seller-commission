@@ -37,4 +37,27 @@ class SalesController extends Controller
             'message' => 'Venda cadastrada com sucesso'
         ], 201);
     }
+
+    public function getAllSalesFromSeller(int $id_seller)
+    {
+        $sales =  Sales::where('sellers.id', $id_seller)
+            ->join('sellers', 'sales.id_seller', 'sellers.id')
+            ->select('sellers.id', 'sellers.name', 'sellers.email', 'sales.value', 'sales.created_at')
+            ->get();
+
+        $salesSeller = [];
+
+        foreach ($sales as $sale) {
+            array_push($salesSeller, [
+                "id" => $sale->id,
+                "name" => $sale->name,
+                "email" => $sale->email,
+                "saleValue" => (float)$sale->value,
+                "saleComission" => (float)number_format($sale->value * 0.085, 2),
+                "saleDate" => $sale->created_at->format('d/m/Y')
+            ]);
+        }
+
+        return response()->json($salesSeller, 200, [], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
 }
