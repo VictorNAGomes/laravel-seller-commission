@@ -9,7 +9,7 @@ git clone https://github.com/VictorNAGomes/laravel-seller-commission.git
 ```
 
 ```sh
-cd laravel-seller-comission
+cd laravel-seller-commission
 ```
 
 Suba os containers do projeto
